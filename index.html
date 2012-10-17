@@ -1,0 +1,614 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>DOC</title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/opendressdoc.css" />
+	<link rel="stylesheet" href="src/prettify.css" />
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+	<div class="navbar-inner">
+		<div class=" container">
+			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="brand" href="dotjs.html">OpenDress DOC <sup>alpha</sup></a>
+
+			<div class="nav-collapse collapse">
+				<ul class="nav">
+					<li>
+						<a href="dotjs.html">doT.js语法</a>
+					</li>
+					<li class="active">
+						<a href="data.html">数据结构</a>
+					</li>
+					<li>
+						<a href="template.html">模板规范</a>
+					</li>
+					<li>
+						<a href="format.html">数据格式化</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="main-container container">
+	<section>
+		<h2>日志（blogs）</h2>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+				<col class="col-code" />
+				<col class="col-name" />
+				<col class="col-return" />
+				<col class="col-note" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th>属性和方法</th>
+				<th>名称</th>
+				<th>返回值</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>data_source</code></td>
+				<td>日志标识</td>
+				<td>字符串</td>
+				<td><code>blogs</code></td>
+			</tr><tr>
+				<td><code>title</code></td>
+				<td>日志标题</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>link</code></td>
+				<td>日志连接</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>images</code></td>
+				<td>获取日志里的图片</td>
+				<td>图片对象数组</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>summary</code></td>
+				<td>摘要</td>
+				<td>文字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>post_time</code></td>
+				<td>发表时间</td>
+				<td>日期时间</td>
+				<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+			</tr>
+			<tr>
+				<td><code>category</code></td>
+				<td>分类</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>visit_count</code></td>
+				<td>阅读数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>comment_count</code></td>
+				<td>评论数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h2>说说（posts）</h2>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+				<col class="col-code" />
+				<col class="col-name" />
+				<col class="col-return" />
+				<col class="col-note" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th>属性和方法</th>
+				<th>名称</th>
+				<th>返回值</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>data_source</code></td>
+				<td>数据类型标识</td>
+				<td>字符串</td>
+				<td><code>posts</code></td>
+			</tr><tr>
+				<td><code>type</code></td>
+				<td>说说类型</td>
+				<td>字符串</td>
+				<td><code>original</code> (原创),<code>retweet</code> (转发),<code>photo</code> (带图说说)</td>
+			</tr>
+			<tr>
+				<td><code>content()</code></td>
+				<td>说说内容</td>
+				<td>HTML片段</td>
+				<td>总是返回一般情况下需要展现的信息，如果转发帖会有转发链</td>
+			</tr>
+			<tr>
+				<td><code>original_content()</code></td>
+				<td>说说内容</td>
+				<td>HTML片段</td>
+				<td>仅是包含当前用户发表的信息</td>
+			</tr>
+			<tr>
+				<td><code>broadcast_content2()</code></td>
+				<td>说说内容</td>
+				<td>HTML片段</td>
+				<td>针对于转发帖的字段，会带有被转发的原文信息</td>
+			</tr>
+			<tr>
+				<td><code>post_time</code></td>
+				<td>发表时间</td>
+				<td>日期时间</td>
+				<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+			</tr>
+			<tr>
+				<td><code>comment_count</code></td>
+				<td>评论数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>medias()</code></td>
+				<td>媒体数组</td>
+				<td>数组</td>
+				<td>数组中的元素为媒体，<a href="data.html#media">参考媒体</a></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h2>相册（photos）</h2>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+							<col class="col-code" />
+							<col class="col-name" />
+							<col class="col-return" />
+							<col class="col-note" />
+						</colgroup>
+			<thead>
+			<tr>
+				<th>属性和方法</th>
+				<th>名称</th>
+				<th>返回值</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>data_source</code></td>
+				<td>数据类型标识</td>
+				<td>字符串</td>
+				<td><code>photos</code></td>
+			</tr><tr>
+				<td><code>photo_name</code></td>
+				<td>相片名称</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>photo_description</code></td>
+				<td>相片描述</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>photo_url()</code></td>
+				<td>相片图片</td>
+				<td>HTML片段</td>
+				<td>带链接的图片</td>
+			</tr>
+			<tr>
+				<td><code>photo_width</code></td>
+				<td>图片宽度</td>
+				<td>数字</td>
+				<td></td>
+			</tr><tr>
+				<td><code>photo_height</code></td>
+				<td>图片高度</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>post_time</code></td>
+				<td>发表时间</td>
+				<td>日期时间</td>
+				<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+			</tr>
+			<tr>
+				<td><code>comment_count</code></td>
+				<td>评论数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h2>个人档（profile）</h2>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+				<col class="col-code" />
+				<col class="col-name" />
+				<col class="col-return" />
+				<col class="col-note" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th>属性和方法</th>
+				<th>名称</th>
+				<th>返回值</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>data_source</code></td>
+				<td>数据类型标识</td>
+				<td>字符串</td>
+				<td><code>profile</code></td>
+			</tr>
+			<tr>
+				<td><code>avatar</code></td>
+				<td>用户头像</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>qzone_avatar()</code></td>
+				<td>空间头像</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>nick()</code></td>
+				<td>用户昵称</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>qzone_nick()</code></td>
+				<td>空间名称</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>qzone_description</code></td>
+				<td>空间描述</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>gender</code></td>
+				<td>性别</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>constellation</code></td>
+				<td>星座</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>blood_type</code></td>
+				<td>血型</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>birthday</code></td>
+				<td>生日</td>
+				<td>日期时间</td>
+				<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+			</tr>
+			<tr>
+				<td><code>marriage</code></td>
+				<td>婚恋情况</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>hometown</code></td>
+				<td>家乡</td>
+				<td>参考地区格式化</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>liveplace</code></td>
+				<td>现居地</td>
+				<td>参考地区格式化</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>intrest</code></td>
+				<td>兴趣</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>blog_count</code></td>
+				<td>日志数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>photo_count</code></td>
+				<td>相片数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>post_count</code></td>
+				<td>说说数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>blog_entrance()</code></td>
+				<td>日志入口</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>photo_entrance()</code></td>
+				<td>相册入口</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>post_entrance()</code></td>
+				<td>说说入口</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>message_entrance()</code></td>
+				<td>留言板入口</td>
+				<td>url</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<section>
+		<h2>留言板 </h2>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+				<col class="col-code" />
+				<col class="col-name" />
+				<col class="col-return" />
+				<col class="col-note" />
+			</colgroup>
+			<thead>
+			<tr>
+				<th>属性和方法</th>
+				<th>名称</th>
+				<th>返回值</th>
+				<th>备注</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>data_source</code></td>
+				<td>数据类型标识</td>
+				<td>字符串</td>
+				<td><code>messages</code></td>
+			</tr>
+			<tr>
+				<td><code>total_count</code></td>
+				<td>留言总数</td>
+				<td>数字</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>messager_pic</code></td>
+				<td>留言用户头像</td>
+				<td>html块，图片链接</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>messager</code></td>
+				<td>留言用户昵称</td>
+				<td>文本</td>
+				<td></td>
+			</tr>
+			<tr>
+				<td><code>post_time</code></td>
+				<td>留言时间</td>
+				<td>日期时间</td>
+				<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+			</tr>
+			<tr>
+				<td><code>content</code></td>
+				<td>留言内容</td>
+				<td> html块，包含表情</td>
+				<td></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+
+	<section>
+			<h2>访客 </h2>
+			<table class="table table-bordered table-striped">
+				<colgroup>
+					<col class="col-code" />
+					<col class="col-name" />
+					<col class="col-return" />
+					<col class="col-note" />
+				</colgroup>
+				<thead>
+				<tr>
+					<th>属性和方法</th>
+					<th>名称</th>
+					<th>返回值</th>
+					<th>备注</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><code>data_source</code></td>
+					<td>数据类型标识</td>
+					<td>字符串</td>
+					<td><code>visitor</code></td>
+				</tr>
+				<tr>
+					<td><code>total_visitor_count</code></td>
+					<td>总访问数</td>
+					<td>数字</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>today_visitor_count</code></td>
+					<td>今日访问数</td>
+					<td>数字</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>new_visitor_count</code></td>
+					<td>最新访客</td>
+					<td>数字</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>visitors</code></td>
+					<td>访客列表</td>
+					<td>数组</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>uin</code></td>
+					<td>访客QQ号</td>
+					<td>数字</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>nick</code></td>
+					<td>访客昵称</td>
+					<td>文本</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>online</code></td>
+					<td>访客是否在线</td>
+					<td>BOOL,[0,1]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>yellow_diamond("html")</code></td>
+					<td>访客黄钻等级</td>
+					<td>HTML块</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>anonymous</code></td>
+					<td>访客是否匿名</td>
+					<td>BOOL,[0,1]</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>visit_time</code></td>
+					<td>访问时间</td>
+					<td>日期时间</td>
+					<td><a href="format.html#format_time">参考时间日期格式化</a></td>
+				</tr>
+				<tr>
+					<td><code>avatar()</code></td>
+					<td>访客头像</td>
+					<td>html块，图片链接</td>
+					<td></td>
+				</tr>
+				</tbody>
+			</table>
+		</section>
+
+
+	<section id="media">
+			<h2>media </h2>
+			<table class="table table-bordered table-striped">
+				<colgroup>
+					<col class="col-code" />
+					<col class="col-name" />
+					<col class="col-return" />
+					<col class="col-note" />
+				</colgroup>
+				<thead>
+				<tr>
+					<th>属性和方法</th>
+					<th>名称</th>
+					<th>返回值</th>
+					<th>备注</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+					<td><code>type</code></td>
+					<td>media类型</td>
+					<td>字符串</td>
+					<td><code>photo</code></td>
+				</tr>
+				<tr>
+					<td><code>origin</code></td>
+					<td>原图</td>
+					<td>字符串</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td><code>thumb_middle</code></td>
+					<td>media类型</td>
+					<td>字符串</td>
+					<td>中等大小的图，微博的最大宽度是460px，说说的最大宽度是392px</td>
+				</tr>
+				<tr>
+					<td><code>thumb_mini</code></td>
+					<td>小图</td>
+					<td>字符串</td>
+					<td></td>
+				</tr>
+				</tbody>
+			</table>
+		</section>
+
+</div>
+</body>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="src/prettify.js"></script>
+<script type="text/javascript">
+	function anonymous(it) {
+		var outhtml = '<div>Hi ' + (it.name) + '!</div><div>' + (it.age || '') + '</div>';
+		return outhtml;
+	}
+	document.body.onload=function(){prettyPrint();};
+
+</script>
+</html>

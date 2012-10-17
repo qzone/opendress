@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>DOC</title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/opendressdoc.css" />
+	<link rel="stylesheet" href="src/prettify.css" />
+
+
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+	<div class=" container">
+	  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </button>
+	  <a class="brand" href="./dotjs.html">OpenDress DOC <sup>alpha</sup></a>
+	  <div class="nav-collapse collapse">
+		  <ul class="nav">
+			  <li class="active">
+				  <a href="dotjs.html">doT.js语法</a>
+			  </li>
+			  <li>
+				  <a href="data.html">数据结构</a>
+			  </li>
+			  <li>
+				  <a href="template.html">模板规范</a>
+			  </li>
+			  <li>
+			  						<a href="format.html">数据格式化</a>
+			  					</li>
+		  </ul>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<div class="main-container container">
+	<section>
+		<h2>基本输出</h2>
+		<ul class="unstyled">
+			<li>
+				<h3>数据</h3>
+				<pre class="prettyprint">{"name":"猴子与面包"}</pre>
+			</li>
+			<li>
+				<h3>模板</h3>
+				<pre class="prettyprint">&lt;h1&gt;你好，{{=it.name}}！&lt;/h1&gt;</pre>
+			</li>
+			<li>
+				<h3>解析</h3>
+				<pre class="prettyprint">
+function anonymous(it) {
+    var outhtml = "&lt;h1&gt;你好,"+it.name+"!&lt;/h1&gt;";
+    return outhtml;
+}</pre>
+			</li>
+			<li>
+				<h3>输出结果</h3>
+				<pre class="prettyprint">&lt;h1&gt;你好，猴子与面包！&lt;/h1&gt;</pre>
+			</li>
+		</ul>
+	</section>
+	<section>
+		<h2>判断 </h2>
+				<ul class="unstyled">
+					<li>
+						<h3>数据</h3>
+						<pre  class="prettyprint">{"data_source":"blogs"}</pre>
+					</li>
+					<li>
+						<h3>模板</h3>
+						<pre class="prettyprint">{{? it.data_source=="photos"}}
+    &lt;h2&gt;这是相册数据&lt;/h2&gt;
+{{?? it.data_source=="blogs"}}
+    &lt;h2&gt;这是日志数据&lt;/h2&gt;
+{{??}}
+    &lt;h2&gt;其它数据类型&lt;/h2&gt;
+{{?}}</pre>
+					</li>
+					<li>
+						<h3>解析</h3>
+						<pre  class="prettyprint">function anonymous(it) {
+    var outhtml ="";
+    if(it.data_source=="photos")
+        outhtml += "&lt;h2&gt;这是相册&lt;/h2&gt;"
+    if(it.data_source=="blogs")
+        outhtml += "&lt;h2&gt;这是日志&lt;/h2&gt;"
+    else
+        outhtml += "&lt;h2&gt;其它数据类型&lt;/h2&gt;"
+    return outhtml;
+}</pre>
+					</li>
+					<li>
+						<h3>输出结果</h3>
+						<pre class="prettyprint">&lt;h2&gt;这是日志数据&lt;/h2&gt;</pre>
+					</li>
+				</ul>
+	</section>
+	<section>
+			<h2>数组循环</h2>
+					<ul class="unstyled">
+						<li>
+							<h3>数据</h3>
+							<pre  class="prettyprint">{[
+    {"title":"你好，世界"},
+    {"title":"Hello World!"},
+    {"title":"日本游记"}
+]}</pre>
+						</li>
+						<li>
+							<h3>模板</h3>
+							<pre class="prettyprint">&lt;ul&gt;
+{{~ it :value:index}}
+&lt;li&gt;{{=value.title}}&lt;/li&gt;
+{{~}}
+&lt;/ul&gt;</pre>
+						</li>
+						<li>
+							<h3>解析</h3>
+							<pre  class="prettyprint">function anonymous(it) {
+	var outhtml = '';
+	var myarr = it.array;
+	if (myarr) {
+		var value, index = -1, l1 = myarr.length - 1;
+		outhtml+="&lt;ul&gt;";
+		while (index < l1) {
+			value = myarr[index += 1];
+			outhtml += '&lt;li&gt;' + (value) + '!&lt;/li&gt;';
+		}
+		outhtml+="&lt;/ul&gt;";
+	}
+	return outhtml;
+}</pre>
+						</li>
+						<li>
+							<h3>输出结果</h3>
+							<pre class="prettyprint">&lt;ul&gt;
+    &lt;li&gt;你好，世界&lt;/li&gt;
+    &lt;li&gt;Hello World!&lt;/li&gt;
+    &lt;li&gt;日本游记&lt;/li&gt;
+&lt;/ul&gt;</pre>
+						</li>
+					</ul>
+		</section>
+</div>
+</body>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="src/prettify.js"></script>
+<script type="text/javascript">
+	function anonymous(it) {
+		var outhtml = '<div>Hi ' + (it.name) + '!</div><div>' + (it.age || '') + '</div>';
+		return outhtml;
+	}
+	document.body.onload=function(){prettyPrint();};
+
+</script>
+</html>

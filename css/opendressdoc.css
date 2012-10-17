@@ -1,0 +1,18 @@
+/*!
+ * Bootstrap v2.0.4
+ *
+ * Copyright 2012 Twitter, Inc
+ * Licensed under the Apache License v2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Designed and built with all the love in the world @twitter by @mdo and @fat.
+ */
+
+.main-container{padding-top:100px;}
+
+section{margin-bottom: 50px}
+section h2{font-size: 24px;padding-bottom: 10px;line-height:30px;margin-bottom: 15px;border-bottom:1px solid #ddd;}
+section h3{font-size: 14px;line-height:20px;margin-bottom: 8px;}
+section .table .col-code{width:150px;}
+section .table .col-name{width:150px;}
+section .table .col-return{width:200px;}
