@@ -1,0 +1,233 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>格式化 OpenDress DOC</title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/opendressdoc.css" />
+	<link rel="stylesheet" href="src/prettify.css" />
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+	<div class=" container">
+	  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </button>
+	  <a class="brand" href="dotjs.html">OpenDress DOC <sup>alpha</sup></a>
+	  <div class="nav-collapse collapse">
+		<ul class="nav">
+		  <li>
+			<a href="dotjs.html">doT.js语法</a>
+		  </li>
+		  <li>
+			<a href="data.html">数据结构</a>
+		  </li>
+			<li>
+			  <a href="template.html">模板规范</a>
+		  </li>
+			<li class="active">
+				<a href="format.html">数据格式化</a>
+			</li>
+			<li>
+				<a href="debug.html">调试和打包</a>
+			</li>
+		</ul>
+	  </div>
+	</div>
+  </div>
+</div>
+
+<div class="main-container container">
+	<section>
+		<h2>数据格式化</h2>
+		<p>OpenDress提供了几种常用的数据格式化方法，包括 按时间混合数据、拉取指定条目数据、格式化日期和时间</p>
+	</section>
+	<section id="format_sort_by_time">
+		<h2>按时间混合数据</h2>
+		<p>日志，相册，说说的数据是分别按各自类型的时间顺序排列的，为了按时间顺序展示用户所有的数据，使用<code>util.sort_by_time()</code>方法，把几个数据源按时间顺序混合成一个数据源：</p>
+		<table class="table table-bordered table-striped">
+					<thead>
+					<tr>
+						<th>参数</th>
+						<th>说明</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><code>arr1 , arr2 ...</code></td>
+						<td>必需。源数组1，源数组2，...</td>
+					</tr>
+					</tbody>
+				</table>
+		<pre class="prettyprint">//按时间顺序把日志、说说混合成一个数据源
+it.util.sort_by_time(it.posts,it.photos)
+//按时间顺序把相册、说说、日志混合成一个数据源
+it.util.sort_by_time(it.photos,it.posts,it.blogs)</pre>
+		<p>混合后的数据源仍然可以使用doT.js的 <code>{{~}}</code> 来遍历数据源数组，并且可以根据 <code>data_source</code> 属性来区分数据类型，针对不同的数据类型做相应的异化。</p>
+		<p>以下代码混合了日志、相册、说说的三种数据，并且根据各类型数据的方法输出内容：</p>
+		<pre class="prettyprint">//按时间顺序把相册、说说、日志混合成一个数据源
+{{~it.util.sort_by_time(it.photos,it.posts,it.blogs) :value:index}}
+    //如果是相册数据
+    {{? value.data_source === 'photos' }}
+        &lt;div class='article_ct'&gt;
+            {{=value.photo_url()}}
+        &lt;/div&gt;
+    //如果是原创的说说数据
+    {{?? value.data_source==='posts' && value.type === 'original' }}
+        &lt;div class='article_ct'&gt;
+            {{=value.content()}}
+        &lt;/div&gt;
+    //如果是日志数据
+    {{?? value.data_source==='blogs'}}
+        &lt;div class='article_ct'&gt;
+            &lt;h3 class='blogs_title'&gt;{{=value.title}}&lt;/h3&gt;
+            &lt;p&gt;{{=value.summary}}&lt;/p&gt;
+        &lt;/div&gt;
+    {{?}}
+{{~}}</pre>
+	</section>
+
+	<section id="format_slice">
+		<h2>拉取指定条目数据</h2>
+		<p>在不指定拉取条目数的情况下，默认拉取100条相关类型用户数据。通过 <code>util.slice()</code> 方法，可以拉取指定区间条目数的数据，返回的仍然是一个数组。该方法有三个参数</p>
+		<table class="table table-bordered table-striped">
+			<thead>
+			<tr>
+				<th>参数</th>
+				<th>说明</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td><code>arr</code></td>
+				<td>必需。源数组</td>
+			</tr>
+			<tr>
+				<td><code>start</code></td>
+				<td>必需。规定从何处开始选取。如果是负数，则规定从数组尾部开始算起的位置。也就是说，-1 指最后一个元素，-2 指倒数第二个元素，以此类推。</td>
+			</tr>
+			<tr>
+				<td><code>count</code></td>
+				<td>可选。规定取多少元素。默认取全部数组元素。</td>
+			</tr>
+			</tbody>
+		</table>
+		<pre class="prettyprint">//拉取第2条和第2条以后的所有相册数据
+{{~it.util.slice(it.photos,1):value:index}}
+//拉取第2条到第11条的10条相册数据
+{{~it.util.slice(it.photos,1，10):value:index}}
+//拉取倒数第1条到第9条的10条相册数据
+{{~it.util.slice(it.photos,-1，10):value:index}}
+</pre>
+		<p>同样的，使用<code>util.sort_by_time()</code>方法混合后的数据仍然可以使用 <code>util.slie()</code>方法来选取指定片段的数据：</p>
+		<pre class="prettyprint">//取出日志相册说说混合数据的第2条到第21条的20条数据
+it.util.slice(it.util.sort_by_time(it.photos,it.posts,it.blogs),1,20)</pre>
+	</section>
+
+
+	<section id="format_time">
+		<h2>日期时间格式化</h2>
+		<p>OpenDress的日期时间是Unix 时间戳（Unix Timestamp），自 1970 年 1 月 1 日（00:00:00 GMT）以来的秒数，<code>util.format_time()</code>提供了一系列灵活的格式化方法对时间戳进行格式化：</p>
+		<table class="table table-bordered table-striped">
+			<colgroup>
+				<col style="width:60px">
+				<col style="width:170px">
+				<col style="">
+				<col style="">
+			</colgroup>
+					<thead>
+					<tr>
+						<th>参数</th>
+						<th>说明</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td><code>time</code></td>
+						<td colspan="3">必需。时间戳</td>
+					</tr>
+					<tr>
+						<td rowspan="14"><code>format</code></td>
+						<td rowspan="14">必需。格式化时间的格式</td>
+						<td><code>{year}</code></td>
+						<td>年份</td>
+					</tr>
+					<tr>
+						<td><code>{month}</code></td>
+						<td>月份</td>
+					</tr>
+					<tr>
+											<td><code>{month_en}</code></td>
+											<td><code>'January','February','March','April','May','June'</code><br/><code>'July','August','September','October','November','December'</code></td>
+										</tr>
+					<tr>
+											<td><code>{month_cn}</code></td>
+											<td><code>'一','二','三','四','五','六','七','八','九','十','十一','十二'</code></td>
+										</tr>
+					<tr>
+						<td><code>{day}</code></td>
+						<td>天</td>
+					</tr>
+					<tr>
+						<td><code>{hour}</code></td>
+						<td>小时</td>
+					</tr>
+					<tr>
+						<td><code>{minute}</code></td>
+						<td>分钟</td>
+					</tr>
+					<tr>
+						<td><code>{second}</code></td>
+						<td>秒数</td>
+					</tr>
+					<tr>
+						<td><code>{weekday}</code></td>
+						<td>星期几</td>
+					</tr><tr>
+						<td><code>{weekday_en}</code></td>
+						<td><code>'Sunday','Monday','Tuesday','Thursday','Wednesday','Friday','Saturday'</code></td>
+					</tr>
+					<tr>
+						<td><code>{weekday_cn}</code></td>
+						<td><code>'日','一','二','三','四','五','六'</code></td>
+					</tr>
+					<tr>
+						<td><code>{ampm}</code></td>
+						<td>上午下午</td>
+					</tr>
+					<tr>
+						<td><code>{ampm_en}</code></td>
+						<td><code>'am','pm'</code></td>
+					</tr><tr>
+						<td><code>{ampm_cn}</code></td>
+						<td><code>'上午','下午'</code></td>
+					</tr>
+
+					</tbody>
+				</table>
+		<p>以下代码展示了输出日期或者时间的例子：</p>
+		<pre class="prettyprint">it.util.format_time(value.post_time,'{year}-{month}-{day}')
+//输出：2012-8-16
+it.util.format_time(value.post_time,'{hour}:{minute}:{second}')
+//输出：11:04:23
+it.util.format_time(value.post_time,'{month}.{year}')
+//输出：8.2012
+it.util.format_time(value.post_time,'{month_en}/{day}/{weekday_en}')
+//输出：August/16/Thursday</pre>
+	</section>
+</div>
+</body>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="src/prettify.js"></script>
+<script type="text/javascript">
+	function anonymous(it) {
+		var outhtml = '<div>Hi ' + (it.name) + '!</div><div>' + (it.age || '') + '</div>';
+		return outhtml;
+	}
+	document.body.onload=function(){prettyPrint();};
+
+</script>
+</html>

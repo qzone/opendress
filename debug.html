@@ -1,0 +1,74 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>调试和打包 OpenDress DOC</title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" href="css/opendressdoc.css" />
+	<link rel="stylesheet" href="src/prettify.css" />
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+	<div class=" container">
+	  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	  </button>
+	  <a class="brand" href="dotjs.html">OpenDress DOC <sup>alpha</sup></a>
+	  <div class="nav-collapse collapse">
+		<ul class="nav">
+		  <li>
+			<a href="dotjs.html">doT.js语法</a>
+		  </li>
+		  <li>
+			<a href="data.html">数据结构</a>
+		  </li>
+			<li>
+			  <a href="template.html">模板规范</a>
+		  </li>
+			<li class="active">
+				<a href="format.html">数据格式化</a>
+			</li>
+			<li>
+				<a href="debug.html">调试和打包</a>
+			</li>
+		</ul>
+	  </div>
+	</div>
+  </div>
+
+</div>
+
+<div class="main-container container">
+	<section class="">
+		<h2>开发流程</h2>
+		<p>推荐的开发流程是：</p>
+		<ol>
+			<li>SVN地址是：http://tc-svn.tencent.com/isd/isd_webrebuild_rep/qzone_v8_proj/trunk/project/proj-opendress</li>
+			<li>先创建一个静态页面，比如<a href="../redblack/demo.htm">demo.htm</a>，包括opendress.css、image和交互性的JS</li>
+			<li>再根据本文档转化成template.js</li>
+			<li>把template.js、opendress.css还有image文件夹上传到141</li>
+			<li>配上host：
+			<pre>
+172.27.4.201	  boss.qmall.qq.com   mall.qzs.qq.com
+10.137.149.49 user.qzone.qq.com
+172.25.32.141 ctc.imgcache.qq.com qzonestyle.gtimg.cn imgcache.qq.com ctc.qzonestyle.gtimg.cn qzs.qq.com ctc.qzs.qq.com ctc.qzs.pengyou.com qzs.pengyou.com i.gtimg.cn ctc.i.gtimg.cn</pre>
+			</li>
+			<li>访问 http://user.qzone.qq.com/289796721/main?mode=gfp_template&id=redblack ，最后一个单词换成文件夹名称</li>
+		</ol>
+	</section>
+</div>
+</body>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="src/prettify.js"></script>
+<script type="text/javascript">
+	function anonymous(it) {
+		var outhtml = '<div>Hi ' + (it.name) + '!</div><div>' + (it.age || '') + '</div>';
+		return outhtml;
+	}
+	document.body.onload=function(){prettyPrint();};
+
+</script>
+</html>
