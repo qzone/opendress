@@ -218,6 +218,14 @@ it.util.format_time(value.post_time,'{month}.{year}')
 it.util.format_time(value.post_time,'{month_en}/{day}/{weekday_en}')
 //输出：August/16/Thursday</pre>
 	</section>
+	
+	<section>
+		<h2>裁剪字符串</h2>
+		<p>util自带一个裁剪字符串的方法：util.cut(string, number, tails);</p>
+		<p>比如想裁剪空间标题名为10个字符（一个中文算两个字符）：</p>
+		<pre class="prettyprint">it.util.cut(it.profile.qzone_nick(),10,'...')</pre>
+		
+	</section>
 </div>
 </body>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
