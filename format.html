@@ -221,9 +221,18 @@ it.util.format_time(value.post_time,'{month_en}/{day}/{weekday_en}')
 	
 	<section>
 		<h2>裁剪字符串</h2>
-		<p>util自带一个裁剪字符串的方法：util.cut(string, number, tails);</p>
-		<p>比如想裁剪空间标题名为10个字符（一个中文算两个字符）：</p>
+		<p>util自带一个裁剪字符串的方法：<code>util.cut(string, number, tails)</code></p>
+		<p>比如想裁剪空间标题名为10个字符（一个中文算两个字符），并且在超出10个时用...来补充：</p>
 		<pre class="prettyprint">it.util.cut(it.profile.qzone_nick(),10,'...')</pre>
+		
+	</section>
+	
+	<section>
+		<h2>去除字符串头尾空格</h2>
+		<p>有的时候需要去除字符串头尾空格：<code>util.trim(string)</code></p>
+		<p>比如在裁剪用户日志，截取前100个字符之前，我们需要去除头部空格，因为可能空格就有100个了：</p>
+		<pre class="prettyprint">//假设value已经是blogs循环中的一篇日志		
+it.util.cut(it.utiil.trim(value.summary),100,'...')</pre>
 		
 	</section>
 </div>
